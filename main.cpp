@@ -104,7 +104,7 @@ int main(void) {
 		std::cout << "入力された所属空間 : (" << LT << ", " << RD << ")" << std::endl;
 		std::cout << std::endl << std::endl;
 
-
+		
 		// 所属空間レベル
 		int LTxorRD = LT ^ RD;
 		// 最上位ビット位置を求める
