@@ -89,6 +89,9 @@ int main(void) {
 			std::cout << "キャストしたものをbit表示 : (" << x_bit << ", " << y_bit << ")" << std::endl;
 			std::cout << std::endl;
 			std::cout << "所属空間 : " << spaceID << std::endl;
+			std::cout << std::endl;
+			std::cout << "/* ========== ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ ========== */" << std::endl << std::endl;
+
 			std::cout << std::endl << std::endl << std::endl << std::endl;
 		}
 		else if (number == 2) {
@@ -122,10 +125,9 @@ int main(void) {
 			std::cout << "最上位ビット位置 : " << highestBitPosition << std::endl;
 			std::cout << "所属空間Bit      : " << std::bitset<6>(spaceIndex) << std::endl;
 			std::cout << "所属空間         : " << spaceIndex << std::endl;
+			std::cout << std::endl;
+			std::cout << "/* ========== ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ ========== */" << std::endl << std::endl;
 			std::cout << std::endl << std::endl << std::endl << std::endl;
-		}
-		else {
-			std::cout << "push Enter" << std::endl;
 		}
 
 		std::cout << "もう一回求めますか？ 1: 続ける  2: 終了" << std::endl;
