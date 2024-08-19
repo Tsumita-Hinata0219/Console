@@ -119,7 +119,6 @@ int main(void) {
 		std::cout << "Š‘®‹óŠÔBit      : " << std::bitset<6>(spaceIndex) << std::endl;
 		std::cout << "Š‘®‹óŠÔ         : " << spaceIndex << std::endl;
 
-
 	}
 	else {
 		std::cout << "push Enter" << std::endl;
