@@ -116,15 +116,19 @@ int main(void) {
 			int LTxorRD = LT ^ RD;
 			// 最上位ビット位置を求める
 			int highestBitPosition = findHighestBitPosition(LTxorRD);
+			// 空間レベルをintで出す
+			int spaceLevel = 3 - highestBitPosition / 2;
 			// どの空間のどの番号に所属しているか
 			int spaceIndex = LT >> highestBitPosition;
 
 			// 出力
 			std::cout << "XOR              : " << LTxorRD << std::endl;
-			std::cout << "空間レベル       : " << std::bitset<6>(LTxorRD) << std::endl;
+			std::cout << "XORをBitで表示   : " << std::bitset<6>(LTxorRD) << std::endl;
 			std::cout << "最上位ビット位置 : " << highestBitPosition << std::endl;
 			std::cout << "所属空間Bit      : " << std::bitset<6>(spaceIndex) << std::endl;
+			std::cout << "空間レベル       : " << spaceLevel << std::endl;
 			std::cout << "所属空間         : " << spaceIndex << std::endl;
+
 			std::cout << std::endl;
 			std::cout << "/* ========== ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ ========== */" << std::endl << std::endl;
 			std::cout << std::endl << std::endl << std::endl << std::endl;
