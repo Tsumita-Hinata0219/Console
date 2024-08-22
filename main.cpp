@@ -21,6 +21,7 @@ private:
     int levelDepth_;                     // ‹óŠÔƒŒƒxƒ‹‚Ì[‚³
 
 public:
+
     LinearQuadtree(int depth) : levelDepth_(depth) {
         int numNodes = 0;
 
@@ -91,6 +92,7 @@ int main() {
         SpatialData(2, 11, 40), // q‹óŠÔ 11”Ô–Ú 40
         SpatialData(3, 47, 50), // ‘·‹óŠÔ 47”Ô–Ú 50
         SpatialData(1, 0, 60),  // e‹óŠÔ  0”Ô–Ú 60
+        SpatialData(3, 63, 600), // ‘·‹óŠÔ 63”Ô–Ú 600
     };
 
     for (const auto& data : spatialDataList) {
@@ -102,3 +104,4 @@ int main() {
 
     return 0;
 }
+
