@@ -78,9 +78,12 @@ int main() {
     int dataValue2 = tree.Query(2, 6);
     int dataValue3 = tree.Query(1, 3);
 
-    std::cout << "Data at level 2, index 5: " << dataValue1 << std::endl;
-    std::cout << "Data at level 2, index 6: " << dataValue2 << std::endl;
-    std::cout << "Data at level 1, index 3: " << dataValue3 << std::endl;
+    std::cout << "level 2, space 5: " << dataValue1 << std::endl;
+    std::cout << "level 2, space 6: " << dataValue2 << std::endl;
+    std::cout << "level 1, space 3: " << dataValue3 << std::endl;
+
+
+
 
     return 0;
 }
