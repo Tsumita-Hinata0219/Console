@@ -1,50 +1,50 @@
 #include <iostream>
 #include <vector>
-#include <stdio.h>
+#include <algorithm>
 
 using namespace std;
 
 
 int main(void) {
 
-    // 日数
-    int N = 0;
-    cin >> N;
+	// 商品数
+	int N = 0;
+	cin >> N;
 
-    //売買条件
-    int c_1 = 0; int c_2 = 0;
-    cin >> c_1;
-    cin >> c_2;
+	// 適用価格の下限
+	int L = 0;
+	cin >> L;
 
-   // 各日の株価
-    std::vector<int> prices(N);
-    for (int i = 0; i < N; ++i) {
-        cin >> prices[i];
-    }
+	// 商品の価格
+	vector<int> u(N);
+	for (int i = 0; i < N; ++i) {
+		cin >> u[i];
+	}
 
-    // 損益
-    int cash = 0;
-    // 持ち株
-    int stock = 0;
+	// 合計金額
+	int cash = 0;
 
-    for (int i = 0; i < N; ++i) {
+	// 最高高額商品
+	auto maxU = max_element(u.begin(), u.end());
 
-        int p = prices[i];
+	if (maxU != u.end()) {
+		// それのインデックス
+		int index = distance(u.begin(), maxU);
 
-        if (p <= c_1) {
-            stock++;
-            cash -= p;
-        }
-        else if (p <= c_2) {
-            cash += stock * p;
-            stock = 0;
-        }
-    }
-
-    cash += stock * prices[N - 1];
-
-    cout << cash << endl;
+		if (u[index] >= L) {
+			// 半額
+			u[index] = u[index] / 2;
+		}
+	}
 
 
-    return 0;
+	for (int i = 0; i < N; ++i) {
+
+		cash += u[i];
+	}
+
+	cout << cash << endl;
+
+
+	return 0;
 }
