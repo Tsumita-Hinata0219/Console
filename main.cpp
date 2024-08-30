@@ -1,43 +1,100 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
+#include <set>
 
 using namespace std;
 
+// ビンゴカードの状態を確認する関数
+int countBingos(const vector<vector<bool>>& opened, int N) {
+    int bingoCount = 0;
 
-int main(void) {
+    // 行チェック
+    for (int i = 0; i < N; ++i) {
+        bool rowBingo = true;
+        for (int j = 0; j < N; ++j) {
+            if (!opened[i][j]) {
+                rowBingo = false;
+                break;
+            }
+        }
+        if (rowBingo) ++bingoCount;
+    }
 
-	// 人数
-	int N;
-	cin >> N;
+    // 列チェック
+    for (int j = 0; j < N; ++j) {
+        bool colBingo = true;
+        for (int i = 0; i < N; ++i) {
+            if (!opened[i][j]) {
+                colBingo = false;
+                break;
+            }
+        }
+        if (colBingo) ++bingoCount;
+    }
 
-	// 合格点
-	int M;
-	cin >> M;
-	
-	//　点数と欠席日数
-	vector<pair<int, int>> a(N);
-	for (int i = 0; i < N; ++i) {
-		cin >> a[i].first;
-		cin >> a[i].second;
-	}
+    // 主対角線チェック
+    bool diag1Bingo = true;
+    for (int i = 0; i < N; ++i) {
+        if (!opened[i][i]) {
+            diag1Bingo = false;
+            break;
+        }
+    }
+    if (diag1Bingo) ++bingoCount;
 
-	// 合格者の出席番号の出力
-	for (int i = 1; i <= N; ++i) {
+    // 副対角線チェック
+    bool diag2Bingo = true;
+    for (int i = 0; i < N; ++i) {
+        if (!opened[i][N - 1 - i]) {
+            diag2Bingo = false;
+            break;
+        }
+    }
+    if (diag2Bingo) ++bingoCount;
 
-		// 合否の計算
-		int s = a[i - 1].first - (a[i - 1].second * 5);
+    return bingoCount;
+}
 
-		if (s <= 0) {
-			s = 0;
-		}
+int main() {
+    int N; // ビンゴカードのサイズ
+    cin >> N;
 
-		if (s >= M) {
-			cout << i << endl;
-		}
-	}
+    int K; // 抽選回数
+    cin >> K;
 
+    vector<vector<int>> card(N, vector<int>(N));
+    set<int> drawnNumbers;
 
+    // ビンゴカードの入力
+    for (int i = 0; i < N; ++i) {
+        for (int j = 0; j < N; ++j) {
+            cin >> card[i][j];
+        }
+    }
 
-	return 0;
+    // 抽選結果の入力
+    for (int i = 0; i < K; ++i) {
+        int number;
+        cin >> number;
+        drawnNumbers.insert(number);
+    }
+
+    // 開けられているかどうかを追跡する 2D ベクター
+    vector<vector<bool>> opened(N, vector<bool>(N, false));
+
+    // 抽選された数字によってビンゴカードを更新
+    for (int i = 0; i < N; ++i) {
+        for (int j = 0; j < N; ++j) {
+            if (card[i][j] == 0 || drawnNumbers.count(card[i][j])) {
+                opened[i][j] = true;
+            }
+        }
+    }
+
+    // ビンゴの数をカウント
+    int bingoCount = countBingos(opened, N);
+
+    cout << bingoCount << endl;
+
+    return 0;
 }
