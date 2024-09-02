@@ -30,7 +30,7 @@ public:
             numNodes += int(std::pow(4, i));  // 4^i 個のノード
         }
 
-        // 線形配列のサイズを設定し、初期値として空のリストを設定
+        // 線形配列のサイズを設定
         nodes_.resize(numNodes);
     }
 
