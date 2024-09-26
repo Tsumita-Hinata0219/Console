@@ -2,23 +2,57 @@
 #include <iostream>
 #include <algorithm>
 #include <cmath>
+#include <iostream>
+#include <vector>
 
+class Demo {
+    std::vector<int*> values; // int のポインタを保持する
 
-void CalcForce(float level)
-{
-    float ans = 0.2f * float(std::pow(1.2f, level));
-    //std::cout << ans << std::endl;
-    printf("%.3f\n", ans);
-}
+public:
+    void Register(int* value) { // ポインタを受け取る
+        values.push_back(value);
+    }
+
+    void PrintValues() const {
+        for (int* value : values) {
+            std::cout << *value << " "; // ポインタが指す値を表示
+        }
+        std::cout << std::endl;
+    }
+};
+
+class Test {
+    int value = 0;
+    Demo* demo = nullptr;
+
+public:
+    void Init() {
+        value = 10;
+        demo = new Demo();
+        demo->Register(&value); // value のアドレスを登録
+    }
+
+    void Update() {
+        value += 10; // value を更新
+    }
+
+    void PrintDemoValues() const {
+        demo->PrintValues();
+    }
+};
 
 int main(void) {
+    Test* test = new Test();
+    test->Init();
 
-    CalcForce(0);
-    CalcForce(1);
-    CalcForce(2);
-    CalcForce(3);
-    CalcForce(4);
-    CalcForce(5);
+    // 登録した Demo 内の値を確認
+    test->PrintDemoValues(); // 10
 
+    test->Update();
+
+    // 更新後の値を確認
+    test->PrintDemoValues(); // 20
+
+    delete test;
     return 0;
 }
