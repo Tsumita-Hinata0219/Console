@@ -1,34 +1,49 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+
+int CountDonuts(const vector<string>& str, int h, int w) {
+
+	int count = 0;
+
+	// 少なくとも判定するのに1マス分余裕が必要なので
+	// 1 <= i <= h-2 && 1 <= j <= w-2 の範囲で探索
+	for (int i = 1; i < h - 1; ++i) {
+		for (int j = 1; j < w - 1; ++j) {
+			// 中心が空白なら
+			if (str[i][j] == '.') {
+				// 周囲のマスが全て黒ならcountを加算
+				if (str[i - 1][j - 1] == '#' && str[i - 1][j] == '#' && str[i - 1][j + 1] == '#' && // 上の行 
+					str[i][j - 1] == '#' && str[i][j + 1] == '#' && // 同じ行									 
+					str[i + 1][j - 1] == '#' && str[i + 1][j] == '#' && str[i + 1][j + 1] == '#') // 下の行
+				{
+					count++;
+				}
+			}
+		}
+	}
+
+	return count;
+}
+
 int main(void) {
 
-	// 金額、ポイント、乗車回数
-	int amount = 0, point = 0, takeCount = 0;
-	
-	// 初期金額と乗車回数の入力
-	cin >> amount; cin >> takeCount;
+	// マスの数
+	int h = 0, w = 0;
+	cin >> h; cin >> w;
 
-	// 運賃
-	vector<int> fares(takeCount);
-	for (auto& fare : fares) {
-		cin >> fare;
+	// マスの中身
+	vector<string> strArray(h);
+
+	// 入力
+	for (int i = 0; i < h; ++i) {
+		cin >> strArray[i];
 	}
 
-	// 計算
-	for (auto& fare : fares) {
-
-		// 運賃のほうが高ければ金額で支払い
-		if (point <= fare) {
-			amount -= fare;
-			point += int(float(fare) * 0.1f); // 運賃の10%を加算
-		}
-		else { // ポイントのほうが高ければポイントで支払う
-			point -= fare;
-		}
-		// 現在の金額とポイントの出力
-		cout << amount << " " << point << endl;
-	}
+	// ドーナツを見つける
+	int result = CountDonuts(strArray, h, w);
+	// 見つかった数を出力
+	cout << result << endl;
 
 	return 0;
 }
