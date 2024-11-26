@@ -1,51 +1,42 @@
 #include <iostream>
+#include <string>
 #include <vector>
 #include <sstream>
-#include <iomanip>
 #include <algorithm>
-#include <cmath>
+using namespace std;
 
-struct VEC2 {
-    double x;
-    double y;
-};
+int main(int argc, char* argv[]) {
 
-int main()
-{
-    // 入力を受け取る
-    std::string input;
-    std::getline(std::cin, input);
-    // いったん出力
-    std::cout << input << std::endl;
+    string moji;
+    cin >> moji;
 
-    // 初期座標 原点座標 角度
-    VEC2 init;
-    VEC2 origin;
-    double angle;
+    vector<string> v;
 
-    // 値を取り出す
-    std::stringstream ss(input);
-    ss >> init.x >> init.y >> origin.x >> origin.y >> angle;
-    // いったん出力
-    std::cout << init.x << " " << init.y << std::endl;
-    std::cout << origin.x << " " << origin.y << std::endl;
-    std::cout << angle << std::endl;
+    bool end = false;;
 
-    // targetを求める
-    angle = angle * (3.1415926535897932 / 180); // 度数法->弧度法
-    VEC2 target = {
-        (init.x - origin.x) * std::cos(angle) - (init.y - origin.y) * std::sin(angle) + origin.x,
-        (init.x - origin.x) * std::sin(angle) + (init.y - origin.y) * std::cos(angle) + origin.y,
-    };
+    while (!end) {
+        string s{};
+        getline(cin, s);
+        stringstream ss{ s };
+        if (s == "END_OF_TEXT") {
+            end = true;
+            break;
+        }
+        while (getline(ss, s, ' ')) {     // スペース（' '）で区切って，格納
+            v.push_back(s);
+        }
+    }
 
-    // 小さい数を0として処理するための閾値
-    const double EPSILON = 1e-5;
+    int count = 0;
+    for (auto& e : v) {
+        transform(e.begin(), e.end(), e.begin(), ::tolower);
+        transform(moji.begin(), moji.end(), moji.begin(), ::tolower);
+        if (e.find(moji) != string::npos) {
+            count++;
+        }
+    }
 
-    // 非常に小さい値を0として表示
-    if (std::abs(target.x) < EPSILON) target.x = 0.0;
-    if (std::abs(target.y) < EPSILON) target.y = 0.0;
-
-    std::cout << target.x << " " << target.y << std::endl;
+    cout << count << endl;
 
     return 0;
 }
