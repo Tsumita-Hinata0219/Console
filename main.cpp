@@ -1,34 +1,60 @@
 ﻿#include <iostream>
-#include <variant>
 #include <string>
+#include <memory>
+#include <vector>
+#include <algorithm>
+#include <queue>
+#include <map>
+using namespace std;
 
-// 型の定義（int と std::string のみを持つ）
-using VarType = std::variant<int, std::string>;
-
-class OtherClass {
-public:
-    void registerVariant(VarType& var) { // 引数を参照として受け取る
-        // 特定の型を設定する例
-        var = 20; // int型として20を設定
-    }
-};
+void Check(int check, int start, int end);
 
 int main() {
-    VarType var; // std::variantの変数
-    OtherClass obj; // OtherClassのインスタンス作成
-    obj.registerVariant(var); // registerVariant関数を呼び出す
 
-    // varがint型の場合、値を取得する
-    if (std::holds_alternative<int>(var)) { // varがint型か確認
-        int intValue = std::get<int>(var); // int型として取得
-        std::cout << "Updated Variant (int): " << intValue << std::endl; // int型の値を表示
-    }
+	// ある時刻と開始時刻、終了時刻
+	int check = 0, start = 0, end = 0;
 
-    // varがstd::string型の場合、値を取得する例（こちらは使用していないが、例として示します）
-    if (std::holds_alternative<std::string>(var)) { // varがstd::string型か確認
-        std::string stringValue = std::get<std::string>(var); // std::string型として取得
-        std::cout << "Updated Variant (string): " << stringValue << std::endl; // std::string型の値を表示
-    }
+	// ある時刻の入力
+	cin >> check;
 
-    return 0;
+	// 開始時刻と終了時刻の入力
+	cin >> start; cin >> end;
+
+	// チェック
+	Check(check, start, end);
+
+	return 0;
+}
+
+void Check(int check, int start, int end) {
+
+	// 全て同じ場合は「含まれる」
+	// 早期return
+	if (start == check && end == check) {
+		cout << "含まれる" << endl;
+		return;
+	}
+
+	// 日を跨ぐかチェック
+	if (start > end) { 
+
+		// 日を跨いだ場合
+		// ある時刻に12を加算してチェック
+		if (start >= check && check + 12 > end) {
+			cout << "含まれる" << endl;
+		}
+		else {
+			cout << "含まれない" << endl;
+		}
+	}
+	else {
+
+		// 日を跨がない場合
+		if (start <= check && check < end) {
+			cout << "含まれる" << endl;
+		}
+		else {
+			cout << "含まれない" << endl;
+		}
+	}
 }
